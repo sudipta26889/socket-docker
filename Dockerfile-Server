@@ -1,0 +1,17 @@
+# OS instances
+FROM ubuntu
+
+# install system-wide deps for python and
+RUN apt-get -yqq update
+RUN apt-get -yqq install python3-pip python3-dev curl
+
+# copy our application code
+ADD server /opt/server
+WORKDIR /opt/server
+
+# expose port
+EXPOSE 1234
+
+# start app
+CMD ["python3", "-u", "./server.py"]
+

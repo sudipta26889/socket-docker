@@ -1,0 +1,30 @@
+version: '3'
+services:
+  server:
+    image: sudipta26889/socket-server:latest
+    container_name: server
+    # build:
+    #   context: .
+    #   dockerfile: Dockerfile-Server
+    ports:
+      - 1234:1234
+    volumes:
+      - ./server:/opt/server
+    command: python3 -u ./server.py
+    networks:
+      - socket-net
+  client:
+    image: sudipta26889/socket-client:latest
+    depends_on:
+      - server
+    container_name: client
+    # build:
+    #   context: .
+    #   dockerfile: Dockerfile-Client
+    volumes:
+      - ./client:/opt/client
+    command: python3 -u ./client.py
+    networks:
+      - socket-net
+networks:
+  socket-net:

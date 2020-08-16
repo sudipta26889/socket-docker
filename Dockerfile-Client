@@ -1,0 +1,15 @@
+# OS instances
+FROM ubuntu
+
+# install system-wide deps for python and
+RUN apt-get -yqq update
+RUN apt-get -yqq install python3-pip python3-dev curl
+
+# copy our application code
+ADD client /opt/client
+WORKDIR /opt/client
+
+
+# start app
+CMD ["python3", "-u", "./client.py"]
+
